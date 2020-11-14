@@ -1,0 +1,325 @@
+#
+#
+##################################################################################################################
+# LucidLinux i3 config file
+# Written to be used on 64 bits computers
+# Author   	: 	xbc4000
+# Website 	: 	http://www.github.com/xbc4000
+##################################################################################################################
+#
+#
+
+#Mod Key
+set $mod Mod4
+
+#Fonts
+font xft:hack 12
+
+#Popups control
+popup_during_fullscreen smart
+
+#Kill focused window
+bindsym $mod+Shift+q kill
+
+#Screenshot
+bindsym $mod+Print exec --no-startup-id xfce4-screenshooter
+
+#Redraw i3 inplace
+bindsym $mod+Shift+r restart
+
+#Reload the configuration file
+bindsym $mod+Shift+c reload
+
+#Monitor
+set $firstMonitor LVDS1
+
+#Monitor 1  1-10
+workspace 1 output $firstMonitor
+workspace 2 output $firstMonitor
+workspace 3 output $firstMonitor
+workspace 4 output $firstMonitor
+workspace 5 output $firstMonitor
+workspace 6 output $firstMonitor
+workspace 7 output $firstMonitor
+workspace 8 output $firstMonitor
+
+#Switch to workspace 1-10
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+
+#Move focused container to workspace 1-10
+bindsym $mod+Shift+1 move container to workspace 1; workspace 1
+bindsym $mod+Shift+2 move container to workspace 2; workspace 2
+bindsym $mod+Shift+3 move container to workspace 3; workspace 3
+bindsym $mod+Shift+4 move container to workspace 4; workspace 4
+bindsym $mod+Shift+5 move container to workspace 5; workspace 5
+bindsym $mod+Shift+6 move container to workspace 6; workspace 6
+bindsym $mod+Shift+7 move container to workspace 7; workspace 7
+bindsym $mod+Shift+8 move container to workspace 8; workspace 8
+
+#Workspace Assign
+assign [class="code-oss"]                                               → 1
+assign [class="Thunar|GitHub Desktop"]                                  → 2
+assign [class="Chromium"]                                               → 3
+assign [class="Spotify|Pavucontrol"]                                    → 4
+assign [class="Steam"]                                                  → 5
+assign [class="discord"]                                                → 6
+assign [class="Hexchat|TelegramDesktop"]                                → 7
+assign [class="Tor Launcher|Tor Browser|VPN Unlimited"]                 → 8
+
+#Floating or tiled
+for_window [class="barrier"] floating disable
+for_window [class="tint2"] floating disable
+for_window [class="Galculator"] floating enable
+for_window [class="onboard"] floating disable
+for_window [class="TelegramDesktop"] floating disable
+for_window [class="discord"] floating disable
+for_window [class="Tlp-UI"] floating enable
+for_window [class="Pamac-updater"] floating enable
+for_window [class="Pamac-manager"] floating enable
+for_window [class="mono-sgen"] floating enable
+for_window [class="Tomboy"] floating enable
+for_window [class="Hexchat"] floating disable
+for_window [class="Imagewriter"] floating enable
+for_window [class="clipit"] floating enable
+for_window [class="ffplay"] floating enable
+for_window [class="System-config-printer.py"] floating enable
+for_window [class="Termite"] floating disable
+for_window [class="Xfce4-appfinder"] floating enable
+for_window [class="Xfce4-taskmanager"] floating enable
+for_window [instance="script-fu"] border normal
+for_window [instance="variety"] floating disable
+for_window [title="Copying"] floating enable
+for_window [title="Deleting"] floating enable
+for_window [title="Moving"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="^Preferences$"] floating enable
+for_window [window_role="setup"] floating enable
+
+#Execute
+#Startup Applications
+exec --no-startup-id tint2
+exec --no-startup-id Hexchat
+exec --no-startup-id spotify
+exec --no-startup-id discord
+exec --no-startup-id telegram-desktop
+exec --no-startup-id unclutter
+exec --no-startup-id nm-applet
+exec --no-startup-id setxkbmap us
+exec --no-startup-id nitrogen --restore
+
+#Tray Applications
+exec --no-startup-id aarchup
+exec --no-startup-id barrier
+exec --no-startup-id code-oss
+exec --no-startup-id steam
+exec --no-startup-id onboard
+exec --no-startup-id bluberry
+exec --no-startup-id pamac-tray
+exec --no-startup-id volumeicon
+exec --no-startup-id Redshift-gtk
+exec --no-startup-id variety
+exec --no-startup-id guake
+exec --no-startup-id clipit
+exec --no-startup-id tomboy
+exec --no-startup-id tp-battery-icon
+exec --no-startup-id xfce4-power-manager
+
+#Background Applications
+exec_always --no-startup-id autotiling
+exec_always --no-startup-id numlockx on
+exec_always --no-startup-id ~/.config/polybar/launch.sh &amp;
+exec_always --no-startup-id ~/.config/polybar/scripts/launchlistener.sh
+exec_always --no-startup-id picom --config ~/.config/i3/picom.conf
+exec_always --no-startup-id xautolock -time 1 -locker i3lock-next "Security Clearence Required" "hack" 24
+exec_always --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg) &
+
+#App keyboard shortcuts
+
+#Xfce-appfinder
+bindsym XF86Launch1 exec --no-startup-id xfce4-appfinder
+
+#System monitor
+bindsym mod1+F2 exec --no-startup-id xfce4-taskmanager;focus
+
+#Terminal
+bindsym mod1+F3 exec --no-startup-id termite;focus
+
+#Gmrun
+bindsym mod1+F4 exec --no-startup-id gmrun -font "hack 13"
+
+#Variety
+
+#Trash wallpaper
+bindsym mod1+t exec --no-startup-id variety -t
+
+#Next wallpaper
+bindsym mod1+n exec --no-startup-id variety -n
+bindsym mod1+Right exec --no-startup-id variety -n
+
+#Previous wallpaper
+bindsym mod1+p exec --no-startup-id variety -p
+bindsym mod1+Left exec --no-startup-id variety -p
+
+#Favorite wallpaper
+bindsym mod1+f exec --no-startup-id variety -f
+
+#Pause wallpaper
+bindsym mod1+Up exec --no-startup-id variety --pause
+
+#Resume wallpaper
+bindsym mod1+Down exec --no-startup-id variety --resume
+
+#Audio settings
+bindsym XF86AudioMute exec --no-startup-id "amixer -D pulse set Master toggle"
+bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer -D pulse sset Master '5%+'"
+bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -D pulse sset Master '5%-'"
+bindsym XF86AudioPlay exec --no-startup-id "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
+bindsym XF86AudioNext exec --no-startup-id "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
+bindsym XF86AudioPrev exec --no-startup-id "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
+bindsym XF86AudioStop exec --no-startup-id "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop"
+
+#Power Menu#
+bindsym $mod+X exec --no-startup-id arcolinux-logout
+
+#Moving around i3
+#use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+#Toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+#Change focus
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+#Move focused window
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+#navigate workspaces next / previous
+bindsym XF86Forward workspace next
+bindsym XF86Back workspace prev
+bindsym Mod1+Ctrl+Right workspace next
+bindsym Mod1+Ctrl+Left workspace prev
+bindsym $mod+Tab workspace back_and_forth
+
+#Switch to workspace with urgent window automatically
+for_window [urgent=latest] focus
+
+#Tiling parameters
+#orientation for new workspaces
+default_orientation vertical
+
+#Split in horizontal orientation
+bindsym $mod+h split h
+
+#Split in vertical orientation
+bindsym $mod+v split v
+
+#Rotate screen
+bindsym XF86TaskPane exec rotate-script.sh invert
+bindsym XF86RotateWindows exec rotate-script.sh normal
+
+#Enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+bindsym XF86ScreenSaver fullscreen toggle
+
+#Enter sized mode for the focused container
+bindsym $mod+mod1+f fullscreen disable; floating enable; resize set 368 278; sticky enable; move window to position 907 20
+bindsym $mod+mod1+v fullscreen disable; floating enable; resize set 368 278; sticky enable; move window to position 7 20
+
+#Exit sized mode for the focused container
+bindsym $mod+mod1+r fullscreen disable; floating disable
+
+#Change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+z layout tabbed
+bindsym $mod+e layout toggle split
+
+#Change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+#Focus the parent container
+bindsym $mod+a focus parent
+
+#Focus the child container
+bindsym $mod+d focus child
+
+#Resize window (you can also use the mouse for that)
+bindsym $mod+r mode "resize"
+
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym $left       resize shrink width 10 px or 10 ppt
+        bindsym $down       resize grow height 10 px or 10 ppt
+        bindsym $up         resize shrink height 10 px or 10 ppt
+        bindsym $right      resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left        resize shrink width 10 px or 10 ppt
+        bindsym Down        resize grow height 10 px or 10 ppt
+        bindsym Up          resize shrink height 10 px or 10 ppt
+        bindsym Right       resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+#I3 gapps next
+for_window [class="^.*"] border pixel 3
+
+gaps inner 5
+gaps outer 0
+
+#I3 gapps change
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
