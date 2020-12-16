@@ -73,7 +73,7 @@ module-margin-right = 1
 font-0 = "Hack:size=7.5;0"
 font-1 = "FontAwesome:size=7.5;0"
 
-modules-left =appfinder filesystem temperature1 temperature2 temperature3
+modules-left =appfinder filesystem temperature1 temperature2 temperature3 temperature4 temperature5
 modules-center =cpu1 memory1 battery load-average
 modules-right =pub-ip wired-network wireless-network
 
@@ -127,7 +127,7 @@ font-1 = "FontAwesome:size=7.5;0"
 
 modules-left =volume previous playpause next spotify
 modules-center =clock-calendar weather
-modules-right =onboard bluetooth redraw updates
+modules-right =onboard bluetooth redraw picom updates
 
 ;tray-detached = false
 ;tray-offset-x = 0
@@ -280,7 +280,6 @@ fixed-values = false
 ; Spacing between entries
 ; Default: 2
 spacing = 1
-Additional formatting
 
 ; Available tags:
 ;   <label-mounted> (default)
@@ -369,7 +368,7 @@ thermal-zone = 0
 ; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
 ; to find path to desired file
 ; Default reverts to thermal zone setting
-hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon4/temp2_input
+hwmon-path = /sys/devices/pci0000:00/0000:00:1d.0/0000:05:00.0/hwmon/hwmon1/temp1_input
 
 warn-temperature = 70
 format = <ramp> <label>
@@ -399,14 +398,88 @@ type = internal/temperature
 ; To list all the zone types, run
 ; $ for i in /sys/class/thermal/thermal_zone*; do echo "$i: $(<$i/type)"; done
 ; Default: 0
-thermal-zone = 0
+thermal-zone = 1
 
 ; Full path of temperature sysfs path
 ; Use `sensors` to find preferred temperature source, then run
 ; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
 ; to find path to desired file
 ; Default reverts to thermal zone setting
-hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon4/temp4_input
+hwmon-path = /sys/devices/virtual/thermal/thermal_zone1/hwmon4/temp1_input
+
+warn-temperature = 70
+format = <ramp> <label>
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-underline = ${colors.underline}
+format-warn = <ramp> <label-warn>
+format-warn-underline = #ff0000
+label = %temperature%
+label-warn =  %temperature%
+label-warn-foreground = #ff0000
+ramp-0 = ▁
+ramp-1 = ▂
+ramp-2 = ▃
+ramp-3 = ▄
+ramp-4 = ▅
+ramp-5 = ▆
+ramp-6 = ▇
+ramp-7 = █
+ramp-foreground = ${colors.prefix-foreground}
+
+################################################################################
+
+[module/temperature4]
+type = internal/temperature
+; Thermal zone to use
+; To list all the zone types, run
+; $ for i in /sys/class/thermal/thermal_zone*; do echo "$i: $(<$i/type)"; done
+; Default: 0
+thermal-zone = 2
+
+; Full path of temperature sysfs path
+; Use `sensors` to find preferred temperature source, then run
+; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
+; to find path to desired file
+; Default reverts to thermal zone setting
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input
+
+warn-temperature = 70
+format = <ramp> <label>
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-underline = ${colors.underline}
+format-warn = <ramp> <label-warn>
+format-warn-underline = #ff0000
+label = %temperature%
+label-warn =  %temperature%
+label-warn-foreground = #ff0000
+ramp-0 = ▁
+ramp-1 = ▂
+ramp-2 = ▃
+ramp-3 = ▄
+ramp-4 = ▅
+ramp-5 = ▆
+ramp-6 = ▇
+ramp-7 = █
+ramp-foreground = ${colors.prefix-foreground}
+
+################################################################################
+
+[module/temperature5]
+type = internal/temperature
+; Thermal zone to use
+; To list all the zone types, run
+; $ for i in /sys/class/thermal/thermal_zone*; do echo "$i: $(<$i/type)"; done
+; Default: 0
+thermal-zone = 3
+
+; Full path of temperature sysfs path
+; Use `sensors` to find preferred temperature source, then run
+; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
+; to find path to desired file
+; Default reverts to thermal zone setting
+hwmon-path = /sys/devices/virtual/thermal/thermal_zone3/hwmon7/temp1_input
 
 warn-temperature = 70
 format = <ramp> <label>
@@ -560,7 +633,7 @@ type = internal/battery
 ; Use the following command to list batteries and adapters:
 ; $ ls -1 /sys/class/power_supply/
 battery = BAT0
-adapter = AC
+adapter = AC0
 full-at = 99
 
 format-charging = <animation-charging> <label-charging>
@@ -632,7 +705,7 @@ format-prefix-foreground = ${colors.prefix-foreground}
 
 [module/wired-network]
 type = internal/network
-interface = enp0s25
+interface = enp3s0
 ; Seconds to sleep between updates
 ; Default: 1
 interval = 2.0
@@ -809,6 +882,18 @@ type = custom/script
 interval = 120
 exec = echo "LucidLinux"
 click-left = "xfce4-appfinder"
+format-prefix = " "
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-prefix-foreground = ${colors.prefix-foreground}
+format-underline = ${colors.underline}
+
+################################################################################
+
+[module/picom]
+type = custom/script
+interval = 120
+click-left = exec ~/.config/polybar/scripts/picom-toggle.sh
 format-prefix = " "
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}

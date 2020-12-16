@@ -30,8 +30,11 @@ bindsym $mod+Shift+r restart
 #Reload the configuration file
 bindsym $mod+Shift+c reload
 
-#Monitor
-set $firstMonitor LVDS1
+#Monitors
+set $firstMonitor HDMI-1-1
+
+#Resolution
+exec --no-startup-id xrandr --output HDMI-1-1 --mode 1920x1080
 
 #Monitor 1  1-10
 workspace 1 output $firstMonitor
@@ -81,8 +84,8 @@ for_window [class="onboard"] floating disable
 for_window [class="TelegramDesktop"] floating disable
 for_window [class="discord"] floating disable
 for_window [class="Tlp-UI"] floating enable
-for_window [class="Pamac-updater"] floating enable
-for_window [class="Pamac-manager"] floating enable
+for_window [class="Pamac-updater"] floating disable
+for_window [class="Pamac-manager"] floating disable
 for_window [class="mono-sgen"] floating enable
 for_window [class="Tomboy"] floating enable
 for_window [class="Hexchat"] floating disable
@@ -121,7 +124,6 @@ exec --no-startup-id code-oss
 exec --no-startup-id steam
 exec --no-startup-id onboard
 exec --no-startup-id bluberry
-exec --no-startup-id pamac-tray
 exec --no-startup-id volumeicon
 exec --no-startup-id Redshift-gtk
 exec --no-startup-id variety
@@ -130,11 +132,13 @@ exec --no-startup-id clipit
 exec --no-startup-id tomboy
 exec --no-startup-id tp-battery-icon
 exec --no-startup-id xfce4-power-manager
+exec --no-startup-id optimus-manager-qt
+exec --no-startup-id octopi-notifier
 
 #Background Applications
 exec_always --no-startup-id autotiling
 exec_always --no-startup-id numlockx on
-exec_always --no-startup-id ~/.config/polybar/launch.sh &amp;
+exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec_always --no-startup-id ~/.config/polybar/scripts/launchlistener.sh
 exec_always --no-startup-id picom --config ~/.config/i3/picom.conf
 exec_always --no-startup-id xautolock -time 1 -locker i3lock-next "Security Clearence Required" "hack" 24
@@ -143,7 +147,7 @@ exec_always --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-ag
 #App keyboard shortcuts
 
 #Xfce-appfinder
-bindsym XF86Launch1 exec --no-startup-id xfce4-appfinder
+bindsym mod1+F1 exec --no-startup-id xfce4-appfinder
 
 #System monitor
 bindsym mod1+F2 exec --no-startup-id xfce4-taskmanager;focus
@@ -208,8 +212,6 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 #navigate workspaces next / previous
-bindsym XF86Forward workspace next
-bindsym XF86Back workspace prev
 bindsym Mod1+Ctrl+Right workspace next
 bindsym Mod1+Ctrl+Left workspace prev
 bindsym $mod+Tab workspace back_and_forth
@@ -227,13 +229,8 @@ bindsym $mod+h split h
 #Split in vertical orientation
 bindsym $mod+v split v
 
-#Rotate screen
-bindsym XF86TaskPane exec rotate-script.sh invert
-bindsym XF86RotateWindows exec rotate-script.sh normal
-
 #Enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
-bindsym XF86ScreenSaver fullscreen toggle
 
 #Enter sized mode for the focused container
 bindsym $mod+mod1+f fullscreen disable; floating enable; resize set 368 278; sticky enable; move window to position 907 20
